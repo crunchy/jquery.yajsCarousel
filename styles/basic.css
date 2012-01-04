@@ -51,3 +51,16 @@
 #site-preview #paginate a.pager:hover {
   opacity: 1.0;
 }
+
+#site-preview #paginate .pager .dot {
+  width: 8px;
+  height: 8px;
+  margin: 2px auto;
+
+  background: url(../images/dots.png) 0 -8;
+  z-index: 20;
+}
+
+#site-preview #paginate .pager.active .dot {
+  background: url(../images/dots.png) 0 0;
+}

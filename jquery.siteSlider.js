@@ -69,24 +69,22 @@
   }
 
   function _init(options) {
-    var $slides = $(options.slideTag)
-      , PADDING = 4;
+    var $slides = $(options.slideTag);
 
     // setup the paginator /
     $('.pager').first().addClass('active');
-
 
     $('.pager', options.paginateTag).bind("click", options, _handlePage);
     startAutoScroll(options);
 
     // setup sizing //
     options.el.width(options.width).height(options.height);
-    var $viewer = $('#slide-viewer').css('width', options.width + PADDING).height(options.height);
+    var $viewer = $('#slide-viewer').css('width', options.width).height(options.height);
 
-    var slideWidth = $viewer.width()
+    var slideWidth = options.width + 4
       , numberOfSlides = $slides.length;
 
-    $('#slides').css('width', slideWidth * numberOfSlides);
+    $('#slides').width(slideWidth * numberOfSlides);
 
     // slides sizing
     $(options.slideTag).width(options.width).height(options.height);
@@ -111,7 +109,7 @@
 
     var slideWidth = e.data.width + 4
       , pos = parseInt($('#slides').css('margin-left'))
-      , max = $('#slides').width() - $('#slide-viewer').width()
+      , max = $('#slides').width() - slideWidth
       , $active = $('.pager.active')
       , id = $active.data('slide');
 
@@ -140,7 +138,7 @@
     e.preventDefault();
     if(e.data.prevent) { return; }
 
-    var slideWidth = $($('.slide')[0]).innerWidth() + 4
+    var slideWidth = $($('.slide')[0]).width()
       , pos = parseInt($('#slides').css('margin-left'))
       , curr = $('.pager.active').removeClass('active').data('slide')
       , to = $(this).addClass('active').data('slide');
@@ -149,7 +147,7 @@
     startAutoScroll(e.data);
     e.data.prevent = true;
 
-    slideTo(pos + ((curr - to) * slideWidth), e.data);
+    slideTo(pos + ((curr - to) * (slideWidth + 4)), e.data);
   }
 
   function slideTo(pos, opts) {
