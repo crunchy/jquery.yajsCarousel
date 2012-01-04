@@ -1,13 +1,13 @@
 #site-preview {
-  border: 1px solid #ddd;
-  padding: 8px;
+  width:  1600px;
+  margin: auto;
+}
 
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-
-  box-shadow:inset 0 0 10px #ddd;
-  -moz-box-shadow:inset 0 0 10px #ddd;
+#site-preview #slide-viewer {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: -10;
 }
 
 #site-preview h1,
@@ -17,87 +17,37 @@
 }
 
 #site-preview .slide {
+  width: 100%;
   display: inline-block;
-  overflow: hidden;
-  padding: 20px;
-  float: left;
-  position: relative;
-
-  margin: 10px;
-
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-
-  box-shadow:inset 0 0 10px #ddd;
-  -moz-box-shadow:inset 0 0 10px #ddd;
-}
-
-#site-preview #slide-viewer {
-  position: relative;
-  overflow: hidden;
-}
-
-.slide .desc {
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-}
-
-.slide .desc p {
-  border-top: 1px solid #ddd;
-}
-
-.slide .img {
-  position: relative;
-  overflow: hidden;
-}
-.slide img {
-  position: absolute;
-}
-
-#site-preview .nav {
-  width: 24px;
-  height: 55px;
-  text-indent: -10000;
-  opacity: 0.3;
-
-  -webkit-transition: opacity 0.2s ease-in;
-  -moz-transition: opacity 0.2s ease-in;
-  -o-transition: opacity 0.2s ease-in;
-  transition: opacity 0.2s ease-in;
-}
-
-#site-preview .nav:hover {
-  opacity: 0.8;
-}
-
-#site-preview #prev {
-  float: left;
-  background-image: url(../images/left.png);
-}
-
-#site-preview #next {
-  float: right;
-  background-image: url(../images/right.png);
+  z-index: 2;
 }
 
 #site-preview #paginate {
-  float: right;
-  margin-right: 50px;
-  margin-top: -5px;
+  background-color: rgba(255,255,255,0.7);
+  background-image: none;
+  text-align: center;
+  padding: 10px;
+  margin-top: -64px;
+  z-index: 10;
 }
 
 #site-preview #paginate a.pager {
-  width: 8px;
-  height: 8px;
+  padding: 3px;
   display: inline-block;
-  margin-left: 7px;
+  background-color: rgba(243,245,245,0.22);
+  text-decoration: none;
+  border-radius: 10px;
+  z-index: 15;
 
-  text-indent: -10000px;
-  background: url(../images/dots.png) no-repeat 0 -8px;
+  opacity: 0.8;
+
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
-#site-preview #paginate a.pager.active {
-  background-position: 0 0;
+#site-preview #paginate a.pager.active,
+#site-preview #paginate a.pager:hover {
+  opacity: 1.0;
 }

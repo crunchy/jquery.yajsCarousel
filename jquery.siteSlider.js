@@ -47,9 +47,8 @@
 
   $.fn.siteSlider = function( settings ) {
     var options = $.extend({}, {
-      expandImage: true,
-      width: 800,
-      height: 200,
+      width: 930,
+      height: 490,
       auto: true,
       autoInterval: 5,
       slideTag: '.slide',
@@ -71,43 +70,27 @@
 
   function _init(options) {
     var $slides = $(options.slideTag)
-      , PADDING = 60;
+      , PADDING = 4;
 
-    // setup the paginator //
-    for(var i=0; i < $slides.length; i++) {
-      $($slides[i]).data('id', i);
-      if(i == 0) { continue; }
-      $(options.paginateTag).append("<a href='#' data-id="+i+" class='pager'>.</a>");
-    }
+    // setup the paginator /
     $('.pager').first().addClass('active');
 
-    // bind actions //
-    if(options.expandImage) {
-      $slides.find('img').bind('mouseover', options, _handleHovers);
-      $slides.find('img').bind('mouseout', options, _handleOut);
-    }
 
-    $('.nav').bind("click", options, _handleNav);
-    $('.pager').bind("click", options, _handlePage);
+    $('.pager', options.paginateTag).bind("click", options, _handlePage);
     startAutoScroll(options);
 
     // setup sizing //
     options.el.width(options.width).height(options.height);
-    var $viewer = $('#slide-viewer').css('width', options.width-PADDING).height(options.height);
+    var $viewer = $('#slide-viewer').css('width', options.width + PADDING).height(options.height);
 
-    var slideWidth = $viewer.width()/2 - PADDING;
-    var numberOfSlides = $slides.length;
+    var slideWidth = $viewer.width()
+      , numberOfSlides = $slides.length;
 
-    $('#slides').css('width', (slideWidth+PADDING) * numberOfSlides);
+    $('#slides').css('width', slideWidth * numberOfSlides);
 
     // slides sizing
-    $(options.slideTag).width(slideWidth).height(options.height - PADDING);
-    $('img', options.slideTag).height(options.height-PADDING);
-
-
-    // position nav
-    var navPos = (options.height / 2) - ($('.nav').innerHeight() / 2);
-    $('.nav').css('margin-top', navPos);
+    $(options.slideTag).width(options.width).height(options.height);
+    $('img', options.slideTag).height(options.height);
   }
 
   function startAutoScroll(opts) {
@@ -126,21 +109,20 @@
     if(e.preventDefault) { e.preventDefault(); }
     if(e.data.prevent) { return; }
 
-    var slideWidth = $($('.slide')[0]).innerWidth() + 20
+    var slideWidth = e.data.width + 4
       , pos = parseInt($('#slides').css('margin-left'))
       , max = $('#slides').width() - $('#slide-viewer').width()
-      , forward = ($(this).attr('id') == "next" || auto)
       , $active = $('.pager.active')
-      , id = $active.data('id');
+      , id = $active.data('slide');
 
     if(!auto) {
       stopAutoScroll(e.data);
       startAutoScroll(e.data);
     }
 
-    if( pos == 0 && !forward ) {
+    if( pos == 0 && !auto ) {
       // Don't do anything.
-    } else if( pos > 0 || (pos <= -max && (forward || auto)) ) {
+    } else if( pos > 0 || (pos <= -max && auto) ) {
       e.data.prevent = true;
 
       slideTo(0, e.data);
@@ -149,8 +131,8 @@
     } else {
       e.data.prevent = true;
 
-      $active.removeClass('active').siblings('[data-id="'+ (forward ? id+1 : id-1) +'"]').addClass('active');
-      slideTo(forward ? pos-slideWidth : pos+slideWidth, e.data);
+      $active.removeClass('active').siblings('[data-slide="'+(id+1)+'"]').addClass('active');
+      slideTo(pos-slideWidth, e.data);
     }
   }
 
@@ -158,28 +140,16 @@
     e.preventDefault();
     if(e.data.prevent) { return; }
 
-    var slideWidth = $($('.slide')[0]).innerWidth() + 20
+    var slideWidth = $($('.slide')[0]).innerWidth() + 4
       , pos = parseInt($('#slides').css('margin-left'))
-      , curr = $('.pager.active').removeClass('active').data('id')
-      , to = $(this).addClass('active').data('id');
+      , curr = $('.pager.active').removeClass('active').data('slide')
+      , to = $(this).addClass('active').data('slide');
 
     stopAutoScroll(e.data);
     startAutoScroll(e.data);
     e.data.prevent = true;
 
     slideTo(pos + ((curr - to) * slideWidth), e.data);
-  }
-
-  function _handleHovers(e) {
-    stopAutoScroll(e.data);
-    $(this).stop().animate({
-      'left': -$(this).parent().position().left + 30
-    });
-  }
-
-  function _handleOut(e) {
-    startAutoScroll(e.data);
-    $(this).stop().animate({ 'left': 0 });
   }
 
   function slideTo(pos, opts) {

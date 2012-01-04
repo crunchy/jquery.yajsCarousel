@@ -13,10 +13,6 @@
 <h1>Example 1</h1>
 
 <div id="site-preview">
-  <!-- nav buttons -->
-  <a href="#prev" id="prev" class="nav">Prev</a>
-  <a href="#next" id="next" class="nav">Next</a>
-
   <!-- slide-viewer is the portal we see the slides in, two slides wide -->
   <div id="slide-viewer">
 
@@ -26,47 +22,50 @@
       <!-- the actual slide entity. can contain whatever you like -->
       <div class="slide">
         <span class="desc">
-          <h3>Testing header</h3>
-          <p>This is a test text. Gimme something to do with these tags...</p>
+          <p><a href="#test">Test Link</a></p>
         </span>
         <span class="img">
-          <img src="slide1.png" alt="What?">
+          <img src="birchbox.jpg" alt="What?">
         </span>
       </div>
       <div class="slide">
         <span class="desc">
-          <h3>Another check 2</h3>
-          <p>This is a test text. Gimme something to do with these tags...</p>
+          <p><a href="#test">Test Link</a></p>
         </span>
         <span class="img">
-          <img src="slide2.png" alt="Another">
+          <img src="salescrunch.jpg" alt="Another">
         </span>
       </div>
       <div class="slide">
         <span class="desc">
-          <h3>Another check 3</h3>
-          <p>This is a test text. Gimme something to do with these tags...</p>
+          <p><a href="#test">Test Link</a></p>
         </span>
         <span class="img">
-          <img src="slide2.png" alt="Another">
+          <img src="birchbox.jpg" alt="Another">
         </span>
       </div>
       <div class="slide">
         <span class="desc">
-          <h3>Another check of big</h3>
-          <p>Can I get some help here?</p>
+          <p><a href="#test">Test Link</a></p>
         </span>
         <span class="img">
-          <img src="slide2.png" alt="Another">
+          <img src="salescrunch.jpg" alt="Another">
         </span>
       </div>
       <div class="slide">
         <span class="desc">
-          <h3>Another check of big</h3>
-          <p>Can I get some help here?</p>
+          <p><a href="#test">Test Link</a></p>
         </span>
         <span class="img">
-          <img src="slide2.png" alt="Another">
+          <img src="birchbox.jpg" alt="Another">
+        </span>
+      </div>
+      <div class="slide">
+        <span class="desc">
+          <p><a href="#test">Test Link</a></p>
+        </span>
+        <span class="img">
+          <img src="birchbox.jpg" alt="Another">
         </span>
       </div>
 
@@ -74,13 +73,32 @@
   </div>
 
   <!-- Paginate is filled with the page dots via javascript -->
-  <div id="paginate"></div>
+  <div id="paginate">
+    <a href=#first" class="pager" data-slide="0">
+      <img src="salescrunch-sm.png"/>
+    </a>
+    <a href=#second" class="pager" data-slide="1">
+      <img src="birchbox-sm.png"/>
+    </a>
+    <a href=#third" class="pager" data-slide="2">
+      <img src="jive-sm.png"/>
+    </a>
+    <a href=#fourth" class="pager" data-slide="3">
+      <img src="gigaom-sm.png"/>
+    </a>
+    <a href=#fifth" class="pager" data-slide="4">
+      <img src="careerbuilder-sm.png"/>
+    </a>
+    <a href="#sixth" class="pager" data-slide="5">
+      <img src="chloeisabel-sm.png">
+    </a>
+  </div>
 </div>
 
 <script>
   $(function() {
     // this sets up the slide viewer. you can pass multiple selectors here. will act on all elements returned.
-    $('#site-preview').siteSlider({width: 800, height: 250});
+    $('#site-preview').siteSlider();
   });
 </script>
 
